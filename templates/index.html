@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blood Donor Finder - Connect Life Savers</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="{{ url_for('index') }}" class="brand-logo">
+        <span class="brand-icon">🩸</span>
+        <span>Blood <span class="brand-highlight">Donor Finder</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="{{ url_for('index') }}" class="nav-link active">Home</a></li>
+        <li><a href="{{ url_for('search') }}" class="nav-link">Find a Donor</a></li>
+        <li><a href="{{ url_for('register') }}" class="nav-link nav-btn">+ Register as Donor</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Flash Messages -->
+  <main class="main-content">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-container">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+              <span>{{ message }}</span>
+              <button type="button" class="alert-close">&times;</button>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-badge">
+        <span>❤️ Every Drop Counts</span>
+      </div>
+      <h1 class="hero-title">
+        Find Available Blood Donors <br>
+        <span>Near You In Seconds</span>
+      </h1>
+      <p class="hero-desc">
+        A community-driven platform connecting voluntary blood donors with patients in urgent need.
+        Search donors by blood group and city instantly, or register to become a lifesaver today.
+      </p>
+
+      <div class="hero-actions">
+        <a href="{{ url_for('search') }}" class="btn btn-primary" id="findDonorBtn">
+          🔍 Find a Donor
+        </a>
+        <a href="{{ url_for('register') }}" class="btn btn-secondary" id="registerDonorBtn">
+          ✍️ Register as Donor
+        </a>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">{{ total_donors }}</div>
+          <div class="stat-label">Total Registered Donors</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{{ available_donors }}</div>
+          <div class="stat-label">Active & Available Donors</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">8</div>
+          <div class="stat-label">Blood Groups Covered</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Free & Direct Contact</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="info-section">
+      <div class="section-header">
+        <h2 class="section-title">How Blood Donor Finder Works</h2>
+        <p class="section-desc">Simple, transparent, and direct connection when time matters most.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-box">
+          <div class="feature-icon-wrapper">📍</div>
+          <h3>1. Search by Location</h3>
+          <p>Choose the required blood group and enter your city or area to find matching donors nearby.</p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrapper">📞</div>
+          <h3>2. Direct Contact</h3>
+          <p>Get verified contact numbers directly and call available donors without middlemen or delays.</p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrapper">💉</div>
+          <h3>3. Join as a Lifesaver</h3>
+          <p>Register as a voluntary donor in under a minute and help save lives during emergencies in your city.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2026 <strong>Blood Donor Finder</strong>. All rights reserved.</p>
+      <p>Built with <span class="footer-heart">❤️</span> to save lives.</p>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

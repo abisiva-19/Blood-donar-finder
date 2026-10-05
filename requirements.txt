@@ -1,0 +1,4 @@
+# Python dependencies for Blood Donor Finder
+# Install using: pip install -r requirements.txt
+
+Flask>=3.0.0

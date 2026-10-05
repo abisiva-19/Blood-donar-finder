@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register as Donor - Blood Donor Finder</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="{{ url_for('index') }}" class="brand-logo">
+        <span class="brand-icon">🩸</span>
+        <span>Blood <span class="brand-highlight">Donor Finder</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="{{ url_for('index') }}" class="nav-link">Home</a></li>
+        <li><a href="{{ url_for('search') }}" class="nav-link">Find a Donor</a></li>
+        <li><a href="{{ url_for('register') }}" class="nav-link active nav-btn">+ Register as Donor</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- Flash Messages (Success / Error) -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-container">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+              <span>{{ message }}</span>
+              <button type="button" class="alert-close">&times;</button>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <div class="card-form-wrapper">
+      <div class="form-header">
+        <h2>Become a Blood Donor</h2>
+        <p>Fill out the form below to register yourself as an active blood donor in your city.</p>
+      </div>
+
+      <form action="{{ url_for('register') }}" method="POST" id="donorRegisterForm">
+        <div class="form-grid">
+
+          <!-- Full Name -->
+          <div class="form-group full-width">
+            <label for="name">Full Name <span class="required-star">*</span></label>
+            <input 
+              type="text" 
+              id="name" 
+              name="name" 
+              placeholder="e.g. Arun Kumar" 
+              value="{{ form_data.get('name', '') }}" 
+              required
+            >
+          </div>
+
+          <!-- Age -->
+          <div class="form-group">
+            <label for="age">Age <span class="required-star">*</span></label>
+            <input 
+              type="number" 
+              id="age" 
+              name="age" 
+              placeholder="e.g. 25" 
+              min="18" 
+              max="65" 
+              value="{{ form_data.get('age', '') }}" 
+              required
+            >
+            <span class="form-hint">Must be 18 – 65 years</span>
+          </div>
+
+          <!-- Gender -->
+          <div class="form-group">
+            <label for="gender">Gender <span class="required-star">*</span></label>
+            <select id="gender" name="gender" required>
+              <option value="" disabled {% if not form_data.get('gender') %}selected{% endif %}>Select Gender</option>
+              <option value="Male" {% if form_data.get('gender') == 'Male' %}selected{% endif %}>Male</option>
+              <option value="Female" {% if form_data.get('gender') == 'Female' %}selected{% endif %}>Female</option>
+              <option value="Other" {% if form_data.get('gender') == 'Other' %}selected{% endif %}>Other</option>
+            </select>
+          </div>
+
+          <!-- Blood Group -->
+          <div class="form-group">
+            <label for="blood_group">Blood Group <span class="required-star">*</span></label>
+            <select id="blood_group" name="blood_group" required>
+              <option value="" disabled {% if not form_data.get('blood_group') %}selected{% endif %}>Select Blood Group</option>
+              <option value="A+" {% if form_data.get('blood_group') == 'A+' %}selected{% endif %}>A+</option>
+              <option value="A-" {% if form_data.get('blood_group') == 'A-' %}selected{% endif %}>A-</option>
+              <option value="B+" {% if form_data.get('blood_group') == 'B+' %}selected{% endif %}>B+</option>
+              <option value="B-" {% if form_data.get('blood_group') == 'B-' %}selected{% endif %}>B-</option>
+              <option value="AB+" {% if form_data.get('blood_group') == 'AB+' %}selected{% endif %}>AB+</option>
+              <option value="AB-" {% if form_data.get('blood_group') == 'AB-' %}selected{% endif %}>AB-</option>
+              <option value="O+" {% if form_data.get('blood_group') == 'O+' %}selected{% endif %}>O+</option>
+              <option value="O-" {% if form_data.get('blood_group') == 'O-' %}selected{% endif %}>O-</option>
+            </select>
+          </div>
+
+          <!-- Phone Number -->
+          <div class="form-group">
+            <label for="phone">Phone Number <span class="required-star">*</span></label>
+            <input 
+              type="tel" 
+              id="phone" 
+              name="phone" 
+              placeholder="e.g. 9876543210" 
+              maxlength="10" 
+              value="{{ form_data.get('phone', '') }}" 
+              required
+            >
+            <span class="form-hint">10-digit mobile number</span>
+          </div>
+
+          <!-- City -->
+          <div class="form-group">
+            <label for="city">City <span class="required-star">*</span></label>
+            <input 
+              type="text" 
+              id="city" 
+              name="city" 
+              placeholder="e.g. Madurai" 
+              value="{{ form_data.get('city', '') }}" 
+              required
+            >
+          </div>
+
+          <!-- Area / Location -->
+          <div class="form-group">
+            <label for="area">Area / Location <span class="required-star">*</span></label>
+            <input 
+              type="text" 
+              id="area" 
+              name="area" 
+              placeholder="e.g. Anna Nagar" 
+              value="{{ form_data.get('area', '') }}" 
+              required
+            >
+          </div>
+
+          <!-- Availability Status -->
+          <div class="form-group full-width">
+            <label for="availability">Availability Status <span class="required-star">*</span></label>
+            <select id="availability" name="availability" required>
+              <option value="Available" {% if form_data.get('availability', 'Available') == 'Available' %}selected{% endif %}>Available (Ready to donate)</option>
+              <option value="Not Available" {% if form_data.get('availability') == 'Not Available' %}selected{% endif %}>Not Available (Currently busy / recently donated)</option>
+            </select>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="form-group full-width" style="margin-top: 1rem;">
+            <button type="submit" class="btn btn-primary btn-block" id="submitDonorBtn">
+              💾 Register as Donor
+            </button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2026 <strong>Blood Donor Finder</strong>. All rights reserved.</p>
+      <p>Built with <span class="footer-heart">❤️</span> to save lives.</p>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
