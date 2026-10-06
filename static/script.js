@@ -89,6 +89,13 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!isValid) {
         e.preventDefault();
         showClientError(errorMessages[0]);
+      } else {
+        const submitBtn = document.getElementById("submitDonorBtn");
+        if (submitBtn) {
+          submitBtn.innerHTML = "⏳ Registering Donor...";
+          submitBtn.style.opacity = "0.75";
+          submitBtn.style.pointerEvents = "none";
+        }
       }
     });
 

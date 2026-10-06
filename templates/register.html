@@ -57,7 +57,7 @@
               id="name" 
               name="name" 
               placeholder="e.g. Arun Kumar" 
-              value="{{ form_data.get('name', '') }}" 
+              value="{{ (form_data or {}).get('name', '') }}" 
               required
             >
           </div>
@@ -72,7 +72,7 @@
               placeholder="e.g. 25" 
               min="18" 
               max="65" 
-              value="{{ form_data.get('age', '') }}" 
+              value="{{ (form_data or {}).get('age', '') }}" 
               required
             >
             <span class="form-hint">Must be 18 – 65 years</span>
@@ -82,10 +82,10 @@
           <div class="form-group">
             <label for="gender">Gender <span class="required-star">*</span></label>
             <select id="gender" name="gender" required>
-              <option value="" disabled {% if not form_data.get('gender') %}selected{% endif %}>Select Gender</option>
-              <option value="Male" {% if form_data.get('gender') == 'Male' %}selected{% endif %}>Male</option>
-              <option value="Female" {% if form_data.get('gender') == 'Female' %}selected{% endif %}>Female</option>
-              <option value="Other" {% if form_data.get('gender') == 'Other' %}selected{% endif %}>Other</option>
+              <option value="" disabled {% if not (form_data or {}).get('gender') %}selected{% endif %}>Select Gender</option>
+              <option value="Male" {% if (form_data or {}).get('gender') == 'Male' %}selected{% endif %}>Male</option>
+              <option value="Female" {% if (form_data or {}).get('gender') == 'Female' %}selected{% endif %}>Female</option>
+              <option value="Other" {% if (form_data or {}).get('gender') == 'Other' %}selected{% endif %}>Other</option>
             </select>
           </div>
 
@@ -93,15 +93,15 @@
           <div class="form-group">
             <label for="blood_group">Blood Group <span class="required-star">*</span></label>
             <select id="blood_group" name="blood_group" required>
-              <option value="" disabled {% if not form_data.get('blood_group') %}selected{% endif %}>Select Blood Group</option>
-              <option value="A+" {% if form_data.get('blood_group') == 'A+' %}selected{% endif %}>A+</option>
-              <option value="A-" {% if form_data.get('blood_group') == 'A-' %}selected{% endif %}>A-</option>
-              <option value="B+" {% if form_data.get('blood_group') == 'B+' %}selected{% endif %}>B+</option>
-              <option value="B-" {% if form_data.get('blood_group') == 'B-' %}selected{% endif %}>B-</option>
-              <option value="AB+" {% if form_data.get('blood_group') == 'AB+' %}selected{% endif %}>AB+</option>
-              <option value="AB-" {% if form_data.get('blood_group') == 'AB-' %}selected{% endif %}>AB-</option>
-              <option value="O+" {% if form_data.get('blood_group') == 'O+' %}selected{% endif %}>O+</option>
-              <option value="O-" {% if form_data.get('blood_group') == 'O-' %}selected{% endif %}>O-</option>
+              <option value="" disabled {% if not (form_data or {}).get('blood_group') %}selected{% endif %}>Select Blood Group</option>
+              <option value="A+" {% if (form_data or {}).get('blood_group') == 'A+' %}selected{% endif %}>A+</option>
+              <option value="A-" {% if (form_data or {}).get('blood_group') == 'A-' %}selected{% endif %}>A-</option>
+              <option value="B+" {% if (form_data or {}).get('blood_group') == 'B+' %}selected{% endif %}>B+</option>
+              <option value="B-" {% if (form_data or {}).get('blood_group') == 'B-' %}selected{% endif %}>B-</option>
+              <option value="AB+" {% if (form_data or {}).get('blood_group') == 'AB+' %}selected{% endif %}>AB+</option>
+              <option value="AB-" {% if (form_data or {}).get('blood_group') == 'AB-' %}selected{% endif %}>AB-</option>
+              <option value="O+" {% if (form_data or {}).get('blood_group') == 'O+' %}selected{% endif %}>O+</option>
+              <option value="O-" {% if (form_data or {}).get('blood_group') == 'O-' %}selected{% endif %}>O-</option>
             </select>
           </div>
 
@@ -114,7 +114,7 @@
               name="phone" 
               placeholder="e.g. 9876543210" 
               maxlength="10" 
-              value="{{ form_data.get('phone', '') }}" 
+              value="{{ (form_data or {}).get('phone', '') }}" 
               required
             >
             <span class="form-hint">10-digit mobile number</span>
@@ -128,7 +128,7 @@
               id="city" 
               name="city" 
               placeholder="e.g. Madurai" 
-              value="{{ form_data.get('city', '') }}" 
+              value="{{ (form_data or {}).get('city', '') }}" 
               required
             >
           </div>
@@ -141,7 +141,7 @@
               id="area" 
               name="area" 
               placeholder="e.g. Anna Nagar" 
-              value="{{ form_data.get('area', '') }}" 
+              value="{{ (form_data or {}).get('area', '') }}" 
               required
             >
           </div>
@@ -150,8 +150,8 @@
           <div class="form-group full-width">
             <label for="availability">Availability Status <span class="required-star">*</span></label>
             <select id="availability" name="availability" required>
-              <option value="Available" {% if form_data.get('availability', 'Available') == 'Available' %}selected{% endif %}>Available (Ready to donate)</option>
-              <option value="Not Available" {% if form_data.get('availability') == 'Not Available' %}selected{% endif %}>Not Available (Currently busy / recently donated)</option>
+              <option value="Available" {% if (form_data or {}).get('availability', 'Available') == 'Available' %}selected{% endif %}>Available (Ready to donate)</option>
+              <option value="Not Available" {% if (form_data or {}).get('availability') == 'Not Available' %}selected{% endif %}>Not Available (Currently busy / recently donated)</option>
             </select>
           </div>
 
